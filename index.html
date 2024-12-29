@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funny Index</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 50px;
+        }
+        #content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <h1>Welcome to the Funny Index!</h1>
+        <p>Here is a funny joke for you:</p>
+        <p id="joke"></p>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var jokes = [
+                "Why don't scientists trust atoms? Because they make up everything!",
+                "Why did the scarecrow win an award? Because he was outstanding in his field!",
+                "Why don't skeletons fight each other? They don't have the guts."
+            ];
+            var jokeElement = document.getElementById('joke');
+            jokeElement.textContent = jokes[Math.floor(Math.random() * jokes.length)];
+        });
+    </script>
+</body>
+</html>
