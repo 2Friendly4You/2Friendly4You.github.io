@@ -10,12 +10,30 @@
             background-color: #f0f0f0;
             text-align: center;
             padding: 50px;
+            transition: background-color 0.5s ease;
         }
         #content {
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.5s ease;
+        }
+        #content:hover {
+            transform: scale(1.05);
+        }
+        #new-joke-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #new-joke-btn:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -24,16 +42,41 @@
         <h1>Welcome to the Funny Index!</h1>
         <p>Here is a funny joke for you:</p>
         <p id="joke"></p>
+        <button id="new-joke-btn">Show another joke</button>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var jokes = [
                 "Why don't scientists trust atoms? Because they make up everything!",
                 "Why did the scarecrow win an award? Because he was outstanding in his field!",
-                "Why don't skeletons fight each other? They don't have the guts."
+                "Why don't skeletons fight each other? They don't have the guts.",
+                "Why did the bicycle fall over? Because it was two-tired!",
+                "Why don't some couples go to the gym? Because some relationships don't work out.",
+                "Why did the math book look sad? Because it had too many problems.",
+                "Why was the math lecture so long? The professor kept going off on a tangent.",
+                "Why did the golfer bring two pairs of pants? In case he got a hole in one.",
+                "Why don't programmers like nature? It has too many bugs.",
+                "Why do cows have hooves instead of feet? Because they lactose."
             ];
+            var shownJokes = [];
             var jokeElement = document.getElementById('joke');
-            jokeElement.textContent = jokes[Math.floor(Math.random() * jokes.length)];
+            var newJokeBtn = document.getElementById('new-joke-btn');
+
+            function showNewJoke() {
+                if (shownJokes.length === jokes.length) {
+                    shownJokes = [];
+                }
+                var joke;
+                do {
+                    joke = jokes[Math.floor(Math.random() * jokes.length)];
+                } while (shownJokes.includes(joke));
+                shownJokes.push(joke);
+                jokeElement.textContent = joke;
+            }
+
+            newJokeBtn.addEventListener('click', showNewJoke);
+
+            showNewJoke();
         });
     </script>
 </body>
