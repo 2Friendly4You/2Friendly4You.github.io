@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Speed Calculator</title>
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #1f1c2c, #928dab);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #ff6600;
+            color: white;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #ff3300;
+            transform: scale(1.05);
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Movie Speed Calculator</h1>
+        
+        <label for="moviesCount">Total Movies:</label>
+        <input type="number" id="moviesCount" placeholder="e.g. 530000" value="530000">
+
+        <label for="movieLength">Avg Movie Length (minutes):</label>
+        <input type="number" id="movieLength" placeholder="e.g. 120" value="120">
+
+        <label for="availableHours">Time Available (hours):</label>
+        <input type="number" id="availableHours" placeholder="e.g. 24" value="24">
+
+        <button onclick="calculateSpeed()">Calculate Speed</button>
+
+        <div class="result" id="speedResult">Speed Required: <span id="speedValue">0</span>×</div>
+    </div>
+
+    <script>
+        function calculateSpeed() {
+            let moviesCount = parseFloat(document.getElementById('moviesCount').value);
+            let movieLength = parseFloat(document.getElementById('movieLength').value);
+            let availableHours = parseFloat(document.getElementById('availableHours').value);
+
+            let totalMinutes = moviesCount * movieLength;
+            let availableMinutes = availableHours * 60;
+            let requiredSpeed = totalMinutes / availableMinutes;
+
+            if (isNaN(requiredSpeed) || requiredSpeed <= 0) {
+                document.getElementById('speedValue').textContent = "Invalid Input";
+                return;
+            }
+
+            animateNumber(document.getElementById('speedValue'), requiredSpeed.toFixed(2));
+        }
+
+        function animateNumber(element, targetValue) {
+            let start = 0;
+            let end = parseFloat(targetValue);
+            let duration = 1000; // Animation duration in ms
+            let increment = (end - start) / (duration / 20); 
+
+            let counter = setInterval(() => {
+                start += increment;
+                if (start >= end) {
+                    start = end;
+                    clearInterval(counter);
+                }
+                element.textContent = start.toFixed(2) + "×";
+            }, 20);
+        }
+    </script>
+
+</body>
+</html>
